@@ -23,5 +23,5 @@ export const middleware = async (req) => {
 }
 
 export const config = {
-    matcher: ['/create-list', '/discover-lists', '/myprofile']
+    matcher: ['/create-list', '/discover-lists', '/profile/:path*', '/edit-list']
 }
