@@ -7,7 +7,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { IoIosWarning } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
 
-const page = () => {
+const Play = () => {
 
     const {id} = useParams()
     const [listObject, setListObject] = useState()
@@ -145,6 +145,7 @@ const page = () => {
                                 <label htmlFor="article" className='capitalize text-indigo-500'>article</label>
                                 <input 
                                     ref={inputRef}
+                                    autoComplete='off'
                                     type="text" 
                                     name="article" 
                                     id="article" 
@@ -161,7 +162,8 @@ const page = () => {
                             <div className='flex justify-between items-center py-2 px-6'>
                                 <label htmlFor="plural" className='capitalize text-indigo-500'>plural</label>
                                 <input 
-                                    type="text" 
+                                    type="text"
+                                    autoComplete='off'
                                     name="plural" 
                                     id="plural" 
                                     className={`w-2/3 text-sm px-2 py-1 transition-all ${pluralClassName}`}
@@ -205,4 +207,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Play

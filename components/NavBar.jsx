@@ -91,7 +91,7 @@ const NavBar = () => {
         {toggleMenu && session?.user && (
             <div ref={menuRef} className={`appear absolute z-10 top-16 right-4 sm:top-20 sm:right-6 border flex flex-col items-center gap-4 p-2 rounded-lg min-w-32 bg-white shadow-md`}>
                 <Link 
-                    href='/myprofile' 
+                    href={`/profile/${session?.user.id}`} 
                     className=' hover:text-gray-500 transition-all'
                     onClick={() => setToggleMenu(false)}
                 >

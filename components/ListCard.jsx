@@ -4,7 +4,10 @@ import React, { useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { FiEdit } from 'react-icons/fi'
 
-const ListCard = ({entry}) => {
+const ListCard = ({
+    entry,
+    session = undefined
+}) => {
 
   const [onListNameHover, setOnListNameHover] = useState(false)
   const router = useRouter();
@@ -35,14 +38,23 @@ const ListCard = ({entry}) => {
             Play
         </Link>
         </div>
-        <div className='flex justify-between items-center'>
-        <button onClick={() => router.push(`/edit-list?id=${entry._id}`)}>
-            <FiEdit className='cursor-pointer text-indigo-500 hover:text-indigo-400 transition-all'/>
-        </button>
-        <p className='flex justify-end items-center gap-2'>
-            <FaHeart className='cursor-pointer text-indigo-500 hover:text-indigo-400 transition-all' /> <span>{entry.likes > 0 && entry.likes}</span>
-        </p>
-        </div>
+        {
+            session ?
+                <div className='flex justify-between items-center'>
+                <button onClick={() => router.push(`/edit-list?id=${entry._id}`)}>
+                    <FiEdit className='cursor-pointer text-indigo-500 hover:text-indigo-400 transition-all'/>
+                </button>
+                <p className='flex justify-end items-center gap-2'>
+                    <FaHeart className='cursor-pointer text-indigo-500 hover:text-indigo-400 transition-all' /> <span>{entry.likes > 0 && entry.likes}</span>
+                </p>
+                </div>
+            :
+                <div>
+                    <p className='flex justify-end items-center gap-2'>
+                        <FaHeart className='cursor-pointer text-indigo-500 hover:text-indigo-400 transition-all' /> <span>{entry.likes > 0 && entry.likes}</span>
+                    </p>
+                </div>
+        }
     </>
   )
 }
