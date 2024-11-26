@@ -10,6 +10,7 @@ const ListCard = ({
 }) => {
 
   const [onListNameHover, setOnListNameHover] = useState(false)
+  const [listLiked, setListliked] = useState(false)
   const router = useRouter();
 
 
@@ -38,18 +39,53 @@ const ListCard = ({
         </Link>
         </div>
         <div className='flex justify-between items-center'>
-            <p className='flex justify-end items-center gap-2'>
-                <FaHeart className='cursor-pointer text-indigo-500 hover:text-indigo-400 transition-all' /> <span>{entry.likes > 0 && entry.likes}</span>
-            </p>
+            <button 
+                className='flex justify-end items-center gap-2'
+                onClick={() => {
+                    console.log(entry)
+                    if(entry.likedBy.indexOf(session.user.id) !== -1) {
+                        console.log('estoy en el if')
+                        entry.likedBy.splice(entry.likedBy.indexOf(session.user.id), 1)
+                    } else {
+                        entry.likedBy.push(session.user.id)
+                    }
+                    setListliked(currentValue => !currentValue)
+
+                    const updateList = async () => {
+                        try {
+                            const res = await fetch(`/api/list/${entry._id}`, {
+                              method: 'PATCH',
+                              body: JSON.stringify(entry.likedBy)
+                            })
+                            if(res.ok) {
+                              handleMessage('List updated!', 'bg-green-600')
+                            }
+                          } catch (error) {
+                            console.log(error)
+                          }
+                    }
+                    updateList()
+                }}
+            >
+                <FaHeart className={
+                    `cursor-pointer
+                    ${
+                        listLiked ?
+                        'text-red-600 hover:text-red-400'
+                        :
+                        'text-indigo-500 hover:text-indigo-400'
+                    }
+                    
+                    transition-all`
+                }
+                /> <span>{entry.likes > 0 && entry.likes}</span>
+            </button>
             {
                 session.user.id === entry.creator._id &&
                 <button 
                     onClick={() => router.push(`/edit-list?id=${entry._id}`)}
                 >
-                    <FiEdit className='cursor-pointer
-                                    text-indigo-500
-                                    hover:text-indigo-400 
-                                    transition-all'
+                    <FiEdit className='cursor-pointer text-indigo-500 hover:text-indigo-400 transition-all'
                     />
                 </button>
             }
