@@ -20,7 +20,7 @@ const Play = () => {
         article: '',
         plural: ''
     })
-    const [currentWord, setCurrentWord] = useState(33)
+    const [currentWord, setCurrentWord] = useState(0)
     const [score, setScore] = useState({
         correct: 0,
         wrong: 0,
