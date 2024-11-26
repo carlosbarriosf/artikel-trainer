@@ -17,28 +17,27 @@ export const GET = async (req, { params }) => {
 
 export const PATCH = async (req, { params }) => {
     const {id} = params;
-    const list = await req.json()
-    const likedBy = await req.json()
-    console.log(list)
-    console.log(likedBy)
+    const {list, likedBy} = await req.json()
+    console.log(list, likedBy)
+
     try {
         await connectToDB();
         
         const existingList = await List.findById(id)
         if(!existingList) return new Response('List not found', { status: 404 });
 
-        if(list) {
 
+        if(list) {
             existingList.list = list;
-    
-            await existingList.save()
         }
 
         if(likedBy) {
             existingList.likedBy = likedBy
-
-            await existingList.save()
         }
+    
+        await existingList.save()
+
+
 
         return new Response('List succesfully updated', { status: 200 })
     } catch (error) {

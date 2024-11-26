@@ -55,10 +55,13 @@ const ListCard = ({
                         try {
                             const res = await fetch(`/api/list/${entry._id}`, {
                               method: 'PATCH',
-                              body: JSON.stringify(entry.likedBy)
+                              body: JSON.stringify({
+                                list: entry.list,
+                                likedBy: entry.likedBy
+                              })
                             })
                             if(res.ok) {
-                              handleMessage('List updated!', 'bg-green-600')
+                              console.log('ok')
                             }
                           } catch (error) {
                             console.log(error)
@@ -78,7 +81,7 @@ const ListCard = ({
                     
                     transition-all`
                 }
-                /> <span>{entry.likes > 0 && entry.likes}</span>
+                /> <span>{entry.likedBy.length > 0 && entry.likedBy.length}</span>
             </button>
             {
                 session.user.id === entry.creator._id &&
