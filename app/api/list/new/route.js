@@ -9,7 +9,8 @@ try {
     await connectToDB()
     const newList = await List.create({
         creator: userId,
-        list: list
+        list: list,
+        likedBy: []
     })
 
     return new Response(JSON.stringify(newList), {status: 201})
