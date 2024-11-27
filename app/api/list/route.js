@@ -9,9 +9,13 @@ export const GET = async (req, res) => {
 
         const url= new URL(req.url);
         const searchQuery = url.searchParams.get('q') || ''
-        const lists = await List.find({
-            name: {$regex: searchQuery, $options: 'i'}
-        }).populate('creator');
+        console.log(searchQuery)
+
+        const filter = searchQuery
+            ? {'list.name': {$regex: searchQuery, $options: 'i'}}
+            : {};
+
+        const lists = await List.find(filter).populate('creator');
 
         return new Response(JSON.stringify(lists), {status: 200})
 
