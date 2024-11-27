@@ -6,7 +6,12 @@ export const GET = async (req, res) => {
     try {
         
         await connectToDB();
-        const lists = await List.find({}).populate('creator');
+
+        const url= new URL(req.url);
+        const searchQuery = url.searchParams.get('q') || ''
+        const lists = await List.find({
+            name: {$regex: searchQuery, $options: 'i'}
+        }).populate('creator');
 
         return new Response(JSON.stringify(lists), {status: 200})
 
