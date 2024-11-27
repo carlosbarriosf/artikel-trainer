@@ -8,7 +8,6 @@ import React, { useEffect, useState } from 'react'
 const UserProfile = () => {
 
   const { id } = useParams()
-  console.log(id)
 
   const [userLists, setUserLists] = useState([])
   const [user, setUser] = useState({})
@@ -19,7 +18,6 @@ const UserProfile = () => {
   const fetchLists = async () => {
     const res = await fetch(`/api/users/${id}/lists`);
     const data = await res.json()
-    console.log(data)
 
     setUserLists(data)
   }
@@ -27,7 +25,6 @@ const UserProfile = () => {
   const fetchUser = async () => {
     const res = await fetch(`/api/users/${id}`);
     const data = await res.json()
-    console.log(data)
 
     setUser(data)
   }
@@ -39,10 +36,11 @@ const UserProfile = () => {
 
   return (
     <Profile 
-      session={session?.user.id === id ? session : undefined}
+      session={session}
       userLists={userLists}
       profilePic={user.image}
       userName={user.username}
+      profileId={id}
     />
   )
 }

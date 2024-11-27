@@ -8,7 +8,8 @@ const Profile = ({
     session = undefined,
     userLists,
     profilePic,
-    userName
+    userName,
+    profileId
 }) => {
 
   const [createListHover, setCreateListHover] = useState(false)
@@ -25,7 +26,7 @@ const Profile = ({
             className='rounded-full'
           />
           <p>{userName}</p>
-          {session &&
+          {session?.user.id === profileId &&
             <Link href='/create-list'>
                 <button 
                 className='btn bg-cyan-700 transition-all w-24 h-8 flex justify-center items-center'

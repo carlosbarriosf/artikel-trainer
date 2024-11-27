@@ -96,7 +96,6 @@ const List = ({ list,
           className='flex flex-col justify-center items-center gap-6 my-8 '
           onSubmit={(e) => {
             e.preventDefault()
-            console.log('hola')
             if (list.words.length >= 40) {
               handleMessage('The list is full!', 'bg-amber-500')
               return

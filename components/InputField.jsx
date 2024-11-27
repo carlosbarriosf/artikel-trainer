@@ -61,7 +61,7 @@ const InputField = forwardRef((props, ref) => {
                 </p>}
             </div>  
             </div>
-            {formStatus[name] === false && <p className={`text-red-500 absolute text-xs mt-1`}>The word doesn't fit the supported format</p>}
+            {formStatus[name] === false && <p className={`text-red-500 absolute text-xs mt-1`}>Doesn't fit the format</p>}
         </div>
     </div>
   )

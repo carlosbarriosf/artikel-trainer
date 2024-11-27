@@ -10,7 +10,7 @@ const ListCard = ({
 }) => {
 
   const [onListNameHover, setOnListNameHover] = useState(false)
-  const [listLiked, setListliked] = useState(false)
+  const [listLiked, setListliked] = useState(entry.likedBy.indexOf(session?.user.id) !== -1 )
   const router = useRouter();
 
 
@@ -84,7 +84,7 @@ const ListCard = ({
                 /> <span>{entry.likedBy.length > 0 && entry.likedBy.length}</span>
             </button>
             {
-                session.user.id === entry.creator._id &&
+                session?.user.id === entry.creator._id &&
                 <button 
                     onClick={() => router.push(`/edit-list?id=${entry._id}`)}
                 >
