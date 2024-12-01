@@ -1,9 +1,12 @@
 "use client";
 
 import ListCard from '@components/ListCard';
+import PaginationControls from '@components/PaginationControls';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import React, { useEffect, useState } from 'react'
 
 const DiscoverLists = () => {
@@ -12,55 +15,44 @@ const DiscoverLists = () => {
   const { data: session} = useSession();
 
   const [searchValue, setSearchValue] = useState('')
-  const [debouncedSeachValue, setDebouncedSearchValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const [selectValue, setSelectValue] = useState('')
-  const [sortedLists, setSortedLists] = useState(lists)
 
+  const [pagination, setPagination] = useState({})
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  
   const handleSelectChange = (e) => {
     const value = e.target.value;
     setSelectValue(value);
+    
+    router.push(`/discover-lists?q=${searchValue}&page=1&sort=${value}`)
+  };
+  
+  const handlePageChange = (page) => {
+    const query = {
+      q: searchValue || '',
+      page: page > 1 ? page: 1
+    };
+    router.push(`/discover-lists?${new URLSearchParams(query).toString()}`)
+  } 
 
-    const sorted = [...lists].sort((a, b) => {
-        if (value === 'title-asc') {
-            return a.list.name.localeCompare(b.list.name);
-        }
-        if (value === 'title-desc') {
-            return b.list.name.localeCompare(a.list.name);
-        }
-        if (value === 'likes-asc') {
-            return b.likedBy.length - a.likedBy.length;
-        }
-        if (value === 'likes-desc') {
-            return a.likedBy.length - b.likedBy.length;
-        }
-        return 0; // No sorting
-    });
-    setSortedLists(sorted);
-};
-
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchValue(searchValue)
-    }, 300);
-    return () => clearTimeout(timer)
-  }, [searchValue])
 
   useEffect(() => {
     const getLists = async () => {
       setIsLoading(true)
       try {
-        console.log(debouncedSeachValue)
-        const res = await fetch(
-            debouncedSeachValue
-            ? `/api/list?q=${debouncedSeachValue}`
-            : '/api/list');
+        const currentQuery = Object.fromEntries(searchParams.entries());
+        const searchQuery = currentQuery.q || '';
+        const page = currentQuery.page || 1;
+        setSearchValue(searchQuery);
+        const res = await fetch(`/api/list?q=${searchQuery}&page=${page}&sort=${selectValue}`);
         const data = await res.json();
         console.log(data)
-        setLists(data)
-        setSortedLists(data)
+        setLists(data.lists)
+        setPagination(data.pagination)
       } catch (error) {
         console.error('Failed to fetch lists:', error);
       } finally {
@@ -68,13 +60,19 @@ const DiscoverLists = () => {
       }
     }
     getLists()
-  }, [debouncedSeachValue])
+  }, [searchParams, selectValue])
 
   return (
-    <section>
+    <section className=' relative flex flex-col'>
       <h1 className='text-center text-base sm:text-xl font-semibold text-indigo-500 my-4'>Find new lists to play!</h1>
       <div className='flex gap-4 justify-center my-4 px-2'>
-        <div className="searchBar">
+        <form
+          className="searchBar"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handlePageChange()
+          }}
+        >
           <input 
             className='px-2 py-1 text-sm rounded-md border-indigo-400 border outline-none' 
             type="text" 
@@ -84,20 +82,20 @@ const DiscoverLists = () => {
               setSearchValue(e.target.value);
             }}
           />
-        </div>
+        </form>
         <div className="filter text-sm">
           <select value={selectValue} onChange={handleSelectChange} className='px-2 py-1 rounded-md border-indigo-400 border'>
             <option value="">Sort by</option>
             <option value="title-asc">Title (A - Z)</option>
             <option value="title-desc">Title (Z - A)</option>
-            <option value="likes-asc">Most liked</option>
-            <option value="likes-desc">Least liked</option>
+            <option value="likes-desc">Most liked</option>
+            <option value="likes-asc">Least liked</option>
           </select>
         </div>
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-2'>
-            {sortedLists.length > 0 && 
-              sortedLists.map(entry => (
+            {lists.length > 0 && 
+              lists.map(entry => (
                 <div key={entry._id} className='border bg-white shadow-lg p-2 rounded-md text-sm w-full max-w-72 flex flex-col gap-2'>
                   <ListCard 
                     entry={entry} 
@@ -121,6 +119,11 @@ const DiscoverLists = () => {
               ))
             }
           </div>
+          <PaginationControls
+            currentPage={pagination.currentPage}
+            onPageChange={handlePageChange}
+            totalPages={pagination.totalPages}
+          />
     </section>
   )
 }
