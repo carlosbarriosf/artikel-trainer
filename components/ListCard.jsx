@@ -25,7 +25,7 @@ const ListCard = ({
                 {entry.list.name}
             </h3>
             {onListNameHover && 
-                <p className='absolute bg-gray-600 text-white p-2 appear rounded-md'>{entry.list.name}</p>
+                <p className='absolute left-1/2 -translate-x-1/2 bg-gray-600 text-white p-2 appear rounded-md text-nowrap'>{entry.list.name}</p>
             }
         </div>
         <p>{entry.list.words[0].article} <span className='capitalize'>{entry.list.words[0].noun}</span></p>
@@ -34,7 +34,7 @@ const ListCard = ({
         <p>{entry.list.words[3].article} <span className='capitalize'>{entry.list.words[3].noun}</span></p>
         <p>...</p>
         <div className='flex justify-center'>
-        <Link href={`play/${entry._id}`} className='btn bg-indigo-500 hover:bg-indigo-400 transition-all text-center w-1/3 block '>
+        <Link href={`/play/${entry._id}`} className='btn bg-indigo-500 hover:bg-indigo-400 transition-all text-center w-1/3 block '>
             Play
         </Link>
         </div>
@@ -42,15 +42,14 @@ const ListCard = ({
             <button 
                 className='flex justify-end items-center gap-2'
                 onClick={() => {
-                    console.log(entry)
+                    // console.log(entry)
                     if(entry.likedBy.indexOf(session.user.id) !== -1) {
-                        console.log('estoy en el if')
+                        // console.log('estoy en el if')
                         entry.likedBy.splice(entry.likedBy.indexOf(session.user.id), 1)
                     } else {
                         entry.likedBy.push(session.user.id)
                     }
                     setListliked(currentValue => !currentValue)
-
                     const updateList = async () => {
                         try {
                             const res = await fetch(`/api/list/${entry._id}`, {
