@@ -38,7 +38,11 @@ const ListSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'User'
         }
-    ]
+    ],
+    likeCount: {
+        type: Number,
+        default: 0
+    }
 })
 
 const List = models.List || model('List', ListSchema);

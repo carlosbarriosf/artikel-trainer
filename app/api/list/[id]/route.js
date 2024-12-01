@@ -33,6 +33,7 @@ export const PATCH = async (req, { params }) => {
 
         if(likedBy) {
             existingList.likedBy = likedBy
+            existingList.likeCount = likedBy.length
         }
     
         await existingList.save()
