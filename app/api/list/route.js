@@ -11,7 +11,7 @@ export const GET = async (req, res) => {
         const searchQuery = url.searchParams.get('q') || ''
         console.log(searchQuery)
         const page = parseInt(url.searchParams.get('page')) || 1;
-        const limit = parseInt(url.searchParams.get('limit')) || 2; 
+        const limit = parseInt(url.searchParams.get('limit')) || 18; 
         const sort = url.searchParams.get('sort') || '';
         const skip = (page - 1) * limit;
         console.log(sort)
