@@ -11,6 +11,7 @@ const UserProfile = () => {
 
   const [userLists, setUserLists] = useState([])
   const [user, setUser] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
 
   const { data: session } = useSession()
 
@@ -30,8 +31,15 @@ const UserProfile = () => {
   }
 
   useEffect(() => {
-    fetchLists();
-    fetchUser();
+    setIsLoading(true)
+    try {
+      fetchLists();
+      fetchUser();
+    } catch (error) {
+      console.error('Failed to fetch lists:', error);
+    } finally {
+      setIsLoading(false)
+    }
   }, [])
 
   return (
@@ -41,6 +49,7 @@ const UserProfile = () => {
       profilePic={user.image}
       userName={user.username}
       profileId={id}
+      isLoading={isLoading}
     />
   )
 }

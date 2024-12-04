@@ -1,11 +1,13 @@
 "use client";
 
 import ListCard from '@components/ListCard';
+import LoadingCard from '@components/LoadingCard';
 import PaginationControls from '@components/PaginationControls';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { FaFileCircleQuestion } from "react-icons/fa6";
 
 import React, { useEffect, useState } from 'react'
 
@@ -15,7 +17,7 @@ const DiscoverLists = () => {
   const { data: session} = useSession();
 
   const [searchValue, setSearchValue] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const [selectValue, setSelectValue] = useState('')
 
@@ -94,7 +96,23 @@ const DiscoverLists = () => {
         </div>
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-2'>
-            {lists.length > 0 && 
+            {isLoading ?
+              [...Array(9)].map((_, index) => (
+                <LoadingCard key={index} />
+              ))
+              : lists.length === 0 ?
+              <div className='border bg-white shadow-lg p-2 rounded-md text-sm w-full max-w-72 flex flex-col gap-2 h-72 col-start-2'>
+                <div className='flex flex-col justify-center h-full gap-6'>
+                  <div className='flex w-full justify-center'>
+                    <FaFileCircleQuestion size={50}/>
+                  </div>
+                  <div>
+                    <p>Oops! We couldn’t find anything.</p>
+                    <p>Try another search!</p>
+                  </div>
+                </div>
+              </div>
+              :
               lists.map(entry => (
                 <div key={entry._id} className='border bg-white shadow-lg p-2 rounded-md text-sm w-full max-w-72 flex flex-col gap-2'>
                   <ListCard 

@@ -69,10 +69,13 @@ const CreateList = () => {
           list
         })
       })
-      console.log(res)
-      if (res.ok) {
-        handleMessage('List created!', 'bg-green-600')
+      const data = await res.json()
+      console.log(data)
+      if (res.status === 201) {
+        handleMessage(data.message, 'bg-green-600')
         setList(LIST_INITIAL_STATE)
+      } else if (res.status === 403) {
+        handleMessage(data.message, 'bg-amber-500')
       }
     } catch (error) {
       console.log(error)
