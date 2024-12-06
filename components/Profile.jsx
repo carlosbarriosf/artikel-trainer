@@ -39,19 +39,24 @@ const Profile = ({
           </>
         }
           {session?.user.id === profileId && isLoading === false &&
-            <Link href='/create-list'>
-                <button 
-                className='btn bg-cyan-700 transition-all w-24 h-8 flex justify-center items-center'
-                onMouseEnter={() => {
-                    setCreateListHover(true)
-                }}
-                onMouseLeave={() => {
-                    setCreateListHover(false)
-                }}
-                >
-                {createListHover ? <MdOutlineLibraryAdd size={20}/> : 'New List'}
-                </button>
-            </Link>
+            <>
+              <Link href='/create-list'>
+                  <button 
+                  className='btn bg-cyan-700 transition-all w-24 h-8 flex justify-center items-center'
+                  onMouseEnter={() => {
+                      setCreateListHover(true)
+                  }}
+                  onMouseLeave={() => {
+                      setCreateListHover(false)
+                  }}
+                  >
+                  {createListHover ? <MdOutlineLibraryAdd size={20}/> : 'New List'}
+                  </button>
+              </Link>
+              <Link href={`/profile/${profileId}/likes`} className='btn bg-red-600 hover:bg-red-500 transition-all w-24 h-8 flex justify-center items-center'>
+                Likes
+              </Link>
+            </>
           }
       </div>
       <div className='w-full max-w-screen-lg mx-auto'>
