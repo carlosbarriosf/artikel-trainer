@@ -26,7 +26,8 @@ const List = ({ list,
    formStatus,
    setFormStatus,
    edit = false,
-   handleDeleteList = () => {}
+   handleDeleteList = () => {},
+   isLoading
   }) => {
 
     const [isInfoHovered, setIsInfoHovered] = useState({
@@ -176,17 +177,19 @@ const List = ({ list,
       )}
       <div className='flex justify-center gap-4'>
         <button 
-          className='btn bg-cyan-700 hover:bg-cyan-600 transition-all block'
+          className='btn bg-cyan-700 hover:bg-cyan-600 transition-all min-w-16 flex justify-center'
+          disabled={isLoading}
           onClick={() => {
             handleSaveList()
           }}
         >
-          Save List
+          {isLoading ? <div className='spinner'></div> : 'Save List'}
         </button>
         {edit && 
           <button
             className='btn bg-red-600 hover:bg-red-500 transition-all block'
-            onClick={handleDeleteList}  
+            onClick={handleDeleteList}
+            disabled={isLoading}
           >
             Delete List
           </button>

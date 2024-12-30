@@ -29,6 +29,8 @@ const CreateList = () => {
   const [message, setMessage] = useState('')
   const [messageClassName, setMessageClassName] = useState('')
 
+  const [isLoading, setIsLoading] = useState(false)
+
   //handlers
 
   const handleDeleteNounBtn = (item) => {
@@ -61,6 +63,9 @@ const CreateList = () => {
       handleMessage('The list must contain between 20 and 40 nouns', 'bg-amber-500')
       return
     }
+    
+    setIsLoading(true)
+
     try {
       const res = await fetch('/api/list/new', {
         method: 'POST',
@@ -79,6 +84,8 @@ const CreateList = () => {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
     }
   
@@ -98,6 +105,7 @@ const CreateList = () => {
         handleSaveList={handleSaveList}
         formStatus={formStatus}
         setFormStatus={setFormStatus}
+        isLoading={isLoading}
       />
     </section>
   )

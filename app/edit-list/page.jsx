@@ -35,6 +35,8 @@ const EditList = () => {
     const [message, setMessage] = useState('')
     const [messageClassName, setMessageClassName] = useState('')
 
+    const [isLoading, setIsLoading] = useState(false)
+
     //handlers
 
     const handleDeleteNounBtn = (item) => {
@@ -67,22 +69,31 @@ const EditList = () => {
         handleMessage('The list must contain between 20 and 40 nouns', 'bg-amber-500')
         return
       }
+
+      setIsLoading(true)
       try {
         const res = await fetch(`/api/list/${listId}`, {
           method: 'PATCH',
-          body: JSON.stringify(list)
+          body: JSON.stringify({
+            list: list
+          })
         })
         if(res.ok) {
           handleMessage('List updated!', 'bg-green-600')
         }
       } catch (error) {
         console.log(error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
     const handleDeleteList = async () => {
       const confirmation = confirm('This action is irreversible. Are you sure you want to procceed?')
       if(!confirmation) return
+
+      setIsLoading(true)
+
       try {
         const res = await fetch(`/api/list/${listId}`, {
           method: 'DELETE'
@@ -95,6 +106,8 @@ const EditList = () => {
         }
       } catch (error) {
         console.log(error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -119,6 +132,7 @@ const EditList = () => {
           setFormStatus={setFormStatus}
           edit={true}
           handleDeleteList={handleDeleteList}
+          isLoading={isLoading}
         />
       }
     </section>
