@@ -45,7 +45,13 @@ const NavBar = () => {
   return (
     <nav className='w-full flex justify-between items-center p-4 sm:p-6 relative text-base sm:text-lg'>
         <div>
-            <Link href='/'>Logo</Link>
+            <Link href='/'>
+                <Image src='/artikel-trainer-logo.png' 
+                width={37}
+                height={37}
+                alt='Logo'
+                />
+            </Link>
         </div>
         <div className='flex gap-3 items-center '>
             {session?.user ? 

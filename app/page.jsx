@@ -1,4 +1,8 @@
 import React from 'react'
+import { RiListSettingsLine } from "react-icons/ri";
+import { MdOutlineQuiz } from "react-icons/md";
+import { TbWorldSearch } from "react-icons/tb";
+
 
 const Home = () => {
   return (
@@ -25,10 +29,47 @@ const Home = () => {
             Try it out
           </button>
         </div>
-      </section>
-      <section>
-        {/* here go the top rated lists */}
+        <div id='featuresOverview' className='flex flex-col items-center my-8'>
+          <h1 className='mb-4 text-center text-lg font-bold text-indigo-500'>Unlock Your Learning Potential</h1>
 
+          <div className='flex flex-col sm:grid grid-cols-3 gap-4 text-sm max-w-screen-lg'>
+            <div className='rounded-md bg-gray-300 p-2 flex flex-col gap-4'>
+              <div className='flex justify-center gap-4'>
+                <div className='flex justify-center items-center'>
+                  <RiListSettingsLine size={18}/>
+                </div>
+                <p className='font-bold'>
+                  Customizable Lists
+                </p>
+              </div>
+              <p>Create and organize your own lists of German nouns, tailored to your needs. Focus on the words that challenge you the most and track your progress as you improve.</p>
+            </div>
+
+            <div className='rounded-md bg-gray-300 p-2 flex flex-col gap-4'>
+              <div className='flex justify-center gap-4'>
+                <div className='flex justify-center items-center'>
+                  <MdOutlineQuiz size={18} />
+                </div>
+                <p className='font-bold'>
+                  Quiz Mode
+                </p>
+              </div>
+              <p>Practice noun genders with interactive, quiz-style challenges designed to make learning engaging and effective. Improve your recall with every round.</p>
+            </div>
+
+            <div className='rounded-md bg-gray-300 p-2 flex flex-col gap-4'>
+              <div className='flex justify-center gap-4'>
+                <div className='flex justify-center items-center'>
+                <TbWorldSearch size={18}/>
+                </div>
+                <p className='font-bold'>
+                  Explore and Play Community Lists
+                </p>
+              </div>
+              <p>Browse lists created by other users, discover new nouns, and practice with shared content. Like your favorites and challenge yourself with community-created quizzes.</p>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   )

@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
+import Image from 'next/image';
 import { FaLinkedin } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
@@ -17,7 +18,11 @@ const Footer = () => {
           </Link>
         </div>
         <div>
-          Logo
+          <Image src='/artikel-trainer-logo.png'
+            width={24}
+            height={24}
+            alt='Logo'
+          />
         </div>
       </div>
       <div className='flex items-center text-xs gap-2'>
