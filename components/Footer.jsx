@@ -7,7 +7,7 @@ import { IoMdMail } from "react-icons/io";
 
 const Footer = () => {
   return (
-    <footer className='w-full py-4 flex flex-col gap-1'>
+    <footer className='w-full py-4 flex flex-col gap-1 footer'>
       <div className='flex justify-between'>
         <div className='flex gap-2'>
           <Link href='https://www.linkedin.com/in/carlosbarriosf/'>
@@ -25,13 +25,13 @@ const Footer = () => {
           />
         </div>
       </div>
-      <div className='flex items-center text-xs gap-2'>
+      <div className='flex items-center gap-2'>
         <Link href='mailto:carlosbarriosdev@gmail.com' target='_blank'>
           <IoMdMail size={16}/>
         </Link>
         <p>Send feedback or report an issue</p>
       </div>
-      <div  className='text-center text-xs'>
+      <div  className='text-center'>
       <p>Built with Next.js, Mongoose, and love for the German language.</p>
       <p>© 2024 Carlos Barrios. All rights reserved.</p>
       </div>

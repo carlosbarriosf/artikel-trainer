@@ -32,7 +32,7 @@ const Home = () => {
         <div id='featuresOverview' className='flex flex-col items-center my-8'>
           <h1 className='mb-4 text-center text-lg font-bold text-indigo-500'>Unlock Your Learning Potential</h1>
 
-          <div className='flex flex-col sm:grid grid-cols-3 gap-4 text-sm max-w-screen-lg'>
+          <div className='flex flex-col sm:grid grid-cols-3 gap-4 text-sm sm:text-base max-w-screen-lg'>
             <div className='rounded-md bg-gray-300 p-2 flex flex-col gap-4'>
               <div className='flex justify-center gap-4'>
                 <div className='flex justify-center items-center'>
