@@ -7,9 +7,9 @@ import { IoMdMail } from "react-icons/io";
 
 const Footer = () => {
   return (
-    <footer className='w-full py-4 flex flex-col gap-1 footer'>
+    <footer className='w-full py-4 flex flex-col gap-1 footer mt-8'>
       <div className='flex justify-between'>
-        <div className='flex gap-2'>
+        <div className='flex gap-2 items-center'>
           <Link href='https://www.linkedin.com/in/carlosbarriosf/'>
             <FaLinkedin size={16}/>
           </Link>
