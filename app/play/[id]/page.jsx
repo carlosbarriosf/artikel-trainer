@@ -26,6 +26,7 @@ const Play = () => {
         wrong: 0,
         half: 0
     })
+    const [checkingAnswer, setCheckingAnswer] = useState(false)
 
     const inputRef = useRef(null)
 
@@ -58,6 +59,8 @@ const Play = () => {
         console.log(currentWord)
         console.log(shuffledWordArray.length - 1)
 
+        setCheckingAnswer(true)
+
         if(values.article === shuffledWordArray[currentWord].article) {
             setArticleClassName('bg-green-600 text-white')
         } else {
@@ -86,7 +89,7 @@ const Play = () => {
 
         if(currentWord < shuffledWordArray.length - 1) {
             setTimeout(() => {
-                
+                setCheckingAnswer(false)
                 setCurrentWord(currentValue => currentValue + 1)
                 setArticleClassName('')
                 setPluralClassName('')
@@ -146,6 +149,7 @@ const Play = () => {
                                 <input 
                                     ref={inputRef}
                                     autoComplete='off'
+                                    readOnly={checkingAnswer}
                                     type="text" 
                                     name="article" 
                                     id="article" 
@@ -164,6 +168,7 @@ const Play = () => {
                                 <input 
                                     type="text"
                                     autoComplete='off'
+                                    readOnly={checkingAnswer}
                                     name="plural" 
                                     id="plural" 
                                     className={`w-2/3 text-sm px-2 py-1 transition-all ${pluralClassName}`}
