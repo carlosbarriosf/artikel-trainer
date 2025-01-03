@@ -61,6 +61,7 @@ const Profile = ({
       </div>
       <div className='w-full max-w-screen-lg mx-auto'>
           <h1 className='text-center text-xl sm:text-2xl text-cyan-600 mb-4'>{session ? 'My' : userName} lists</h1>
+          
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-2'>
             {isLoading ?
             [...Array(9)].map((_, index) => (
@@ -76,6 +77,13 @@ const Profile = ({
                 </div>
               ))
             }
+          </div>
+          <div className='w-full flex justify-center mt-4 sm:hidden'>
+            <Link href={`/profile/${profileId}/likes`}
+            className='btn bg-red-600 hover:bg-red-500 transition-all w-24 h-8 flex justify-center items-center'
+            >
+              Likes
+            </Link>
           </div>
       </div>
     </section>
