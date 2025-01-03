@@ -1,10 +1,28 @@
-import React from 'react'
+"use client";
+
+import { getProviders, signIn, useSession } from 'next-auth/react';
+import React, { useEffect, useState } from 'react'
 import { RiListSettingsLine } from "react-icons/ri";
 import { MdOutlineQuiz } from "react-icons/md";
 import { TbWorldSearch } from "react-icons/tb";
+import { useRouter } from '@node_modules/next/navigation';
 
 
 const Home = () => {
+
+  const { data: session} = useSession()
+  const router = useRouter()
+  const [providers, setProviders] = useState(null)
+
+   useEffect(() => {
+      const setUpProviders = async () => {
+          const res = await getProviders();
+          setProviders(res);
+      }
+
+      setUpProviders()
+    }, [])
+
   return (
     <>
       <section>
@@ -18,16 +36,24 @@ const Home = () => {
           </p>
         </div>
         <div className='w-full flex justify-center my-2'>
-          <button
-            className='btn bg-cyan-700 hover:bg-cyan-600 transition-all'
-            // onClick={() => {
-            //   //if user is not logged in, then log in
-
-            //   //else if user is logged in, redirect to create lists
-            // }}
-          >
-            Try it out
-          </button>
+            {providers &&
+                Object.values(providers).map(provider => (
+                    <button 
+                        type='button'
+                        className='btn bg-cyan-700 hover:bg-cyan-600 transition-all'
+                        key={provider.name}
+                        onClick={() => {
+                            if(session) {
+                              router.push('/create-list')
+                            } else {
+                              signIn(provider.id, { callbackUrl: '/create-list' })
+                            }
+                        }}
+                    >
+                        Try it out
+                    </button>
+                ))    
+            }
         </div>
         <div id='featuresOverview' className='flex flex-col items-center my-8'>
           <h1 className='mb-4 text-center text-lg font-bold text-indigo-500'>Unlock Your Learning Potential</h1>
