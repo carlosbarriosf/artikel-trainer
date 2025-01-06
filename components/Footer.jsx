@@ -10,10 +10,10 @@ const Footer = () => {
     <footer className='w-full py-4 flex flex-col gap-1 footer mt-8'>
       <div className='flex justify-between'>
         <div className='flex gap-2 items-center'>
-          <Link href='https://www.linkedin.com/in/carlosbarriosf/'>
+          <Link href='https://www.linkedin.com/in/carlosbarriosf/' target='_blank'>
             <FaLinkedin size={16}/>
           </Link>
-          <Link href='https://github.com/carlosbarriosf'>
+          <Link href='https://github.com/carlosbarriosf' target='_blank'>
             <FaGithub size={16}/>
           </Link>
         </div>

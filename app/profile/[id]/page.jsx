@@ -13,7 +13,7 @@ const UserProfile = () => {
   const [user, setUser] = useState({})
   const [isLoading, setIsLoading] = useState(true)
 
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
 
 
   const fetchLists = async () => {
@@ -31,16 +31,22 @@ const UserProfile = () => {
   }
 
   useEffect(() => {
-    setIsLoading(true)
-    try {
-      fetchLists();
-      fetchUser();
-    } catch (error) {
-      console.error('Failed to fetch lists:', error);
-    } finally {
-      setIsLoading(false)
+    const getData = () => {
+      setIsLoading(true)
+      if(status === "authenticated" && session?.user?.id) {
+        try {
+          fetchLists();
+          fetchUser();
+        } catch (error) {
+          console.error('Failed to fetch lists:', error);
+        } finally {
+          setIsLoading(false)
+        }
+      }
     }
-  }, [])
+
+    getData()
+  }, [status])
 
   return (
     <Profile 
