@@ -63,7 +63,7 @@ const DiscoverLists = () => {
   }, [searchParams, selectValue])
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <ListPage 
         searchValue={searchValue}
         setSearchValue={setSearchValue}
