@@ -41,6 +41,7 @@ const DiscoverLists = () => {
 
 
   useEffect(() => {
+    if(!searchParams) return;
     const getLists = async () => {
       setIsLoading(true)
       try {
@@ -64,7 +65,7 @@ const DiscoverLists = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <ListPage 
+      {searchParams && (<ListPage 
         searchValue={searchValue}
         setSearchValue={setSearchValue}
         selectValue={selectValue}
@@ -76,7 +77,7 @@ const DiscoverLists = () => {
         pagination={pagination}
         session={session}
         title={`Find new lists to play!`}
-      />
+      />)}
     </Suspense>
   )
 }

@@ -114,7 +114,7 @@ const EditList = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <section>
+      {searchParams && (<section>
       <h1 className='text-center text-cyan-800 text-xl sm:text-2xl mb-4 font-bold'>Edit your list!</h1>
       {list &&
         <h2 className='text-center mb-4 font-semibold text-indigo-500'>{list.name}</h2>
@@ -137,7 +137,7 @@ const EditList = () => {
             isLoading={isLoading}
           />
         }
-      </section>
+      </section>)}
     </Suspense>
   )
 }
