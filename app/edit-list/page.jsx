@@ -1,8 +1,9 @@
 "use client";
+export const dynamic = "force-dynamic";
 
 import List from '@components/List'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
 const EditList = () => {
 
@@ -112,30 +113,32 @@ const EditList = () => {
     }
 
   return (
-    <section>
-    <h1 className='text-center text-cyan-800 text-xl sm:text-2xl mb-4 font-bold'>Edit your list!</h1>
-    {list &&
-      <h2 className='text-center mb-4 font-semibold text-indigo-500'>{list.name}</h2>
-    }  
-      {list && 
-        <List 
-          list={list}
-          handleDeleteNounBtn={handleDeleteNounBtn}
-          setList={setList}
-          setValues={setValues}
-          values={values}
-          message={message}
-          messageClassName={messageClassName}
-          handleMessage={handleMessage}
-          handleSaveList={handleSaveList}
-          formStatus={formStatus}
-          setFormStatus={setFormStatus}
-          edit={true}
-          handleDeleteList={handleDeleteList}
-          isLoading={isLoading}
-        />
-      }
-    </section>
+    <Suspense>
+      <section>
+      <h1 className='text-center text-cyan-800 text-xl sm:text-2xl mb-4 font-bold'>Edit your list!</h1>
+      {list &&
+        <h2 className='text-center mb-4 font-semibold text-indigo-500'>{list.name}</h2>
+      }  
+        {list && 
+          <List 
+            list={list}
+            handleDeleteNounBtn={handleDeleteNounBtn}
+            setList={setList}
+            setValues={setValues}
+            values={values}
+            message={message}
+            messageClassName={messageClassName}
+            handleMessage={handleMessage}
+            handleSaveList={handleSaveList}
+            formStatus={formStatus}
+            setFormStatus={setFormStatus}
+            edit={true}
+            handleDeleteList={handleDeleteList}
+            isLoading={isLoading}
+          />
+        }
+      </section>
+    </Suspense>
   )
 }
 

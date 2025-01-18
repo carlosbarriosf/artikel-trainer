@@ -1,10 +1,11 @@
 "use client";
+export const dynamic = "force-dynamic";
 
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import ListPage from '@components/ListPage';
 
 const DiscoverLists = () => {
@@ -62,19 +63,21 @@ const DiscoverLists = () => {
   }, [searchParams, selectValue])
 
   return (
-    <ListPage 
-      searchValue={searchValue}
-      setSearchValue={setSearchValue}
-      selectValue={selectValue}
-      setSelectValue={setSelectValue}
-      handleSelectChange={handleSelectChange}
-      handlePageChange={handlePageChange}
-      lists={lists}
-      isLoading={isLoading}
-      pagination={pagination}
-      session={session}
-      title={`Find new lists to play!`}
-    />
+    <Suspense>
+      <ListPage 
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        selectValue={selectValue}
+        setSelectValue={setSelectValue}
+        handleSelectChange={handleSelectChange}
+        handlePageChange={handlePageChange}
+        lists={lists}
+        isLoading={isLoading}
+        pagination={pagination}
+        session={session}
+        title={`Find new lists to play!`}
+      />
+    </Suspense>
   )
 }
 
