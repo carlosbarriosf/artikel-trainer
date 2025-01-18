@@ -3,6 +3,7 @@ import AuthProvider from '@components/AuthProvider';
 import Footer from '@components/Footer';
 import NavBar from '@components/NavBar';
 import '@styles/globals.css';
+import { Suspense } from 'react';
 
 
 export const metadata = {
@@ -18,7 +19,9 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <main className='main'>
             <NavBar />
-            {children}
+              <Suspense>
+                {children}
+              </Suspense>
             <Footer/>
           </main>
         </AuthProvider>
