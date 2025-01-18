@@ -16,15 +16,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body >
-        <AuthProvider>
-          <main className='main'>
-            <NavBar />
-              <Suspense>
-                {children}
-              </Suspense>
-            <Footer/>
-          </main>
-        </AuthProvider>
+        <Suspense>
+          <AuthProvider>
+            <main className='main'>
+              <NavBar />
+              {children}
+              <Footer/>
+            </main>
+          </AuthProvider>
+        </Suspense>
       </body>
     </html>
   );
