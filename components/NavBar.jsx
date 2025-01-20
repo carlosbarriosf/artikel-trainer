@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 const NavBar = () => {
 
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
     const [toggleMenu, setToggleMenu] = useState(false)
     const [providers, setProviders] = useState(null)
     const menuRef = useRef(null)
@@ -54,7 +54,7 @@ const NavBar = () => {
             </Link>
         </div>
         <div className='flex gap-3 items-center '>
-            {session?.user ? 
+            {session?.user && status === 'authenticated' ? 
                 <>
                     <Link href='/discover-lists' className='hidden sm:block hover:text-gray-500 transition-all'>Discover Lists</Link>
                     <div 
@@ -74,6 +74,8 @@ const NavBar = () => {
                     </div>
                 </>
 
+                : status === 'loading' ?
+                <div className='w-16 h-8 animate-pulse bg-gray-400 rounded-md'></div>
                 :
                 <>
                     {providers &&
