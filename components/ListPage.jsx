@@ -93,11 +93,14 @@ const ListPage = ({
               ))
             }
           </div>
+          {
+          lists.length !== 0 &&
           <PaginationControls
             currentPage={pagination.currentPage}
             onPageChange={handlePageChange}
             totalPages={pagination.totalPages}
           />
+          }
     </section>
   )
 }
