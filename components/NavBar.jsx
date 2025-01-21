@@ -13,6 +13,9 @@ const NavBar = () => {
     const [providers, setProviders] = useState(null)
     const menuRef = useRef(null)
 
+    console.log("Session status:", status);
+    console.log("Session data:", session);
+
     useEffect(() => {
         const setUpProviders = async () => {
             const res = await getProviders();
