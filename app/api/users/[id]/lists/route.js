@@ -6,8 +6,10 @@ export const GET = async (req, { params }) => {
     
     try {
         await connectToDB();
+        //fixed await params error
+        const {id} = await params
 
-        const userLists = await List.find({ creator: params.id }).populate('creator')
+        const userLists = await List.find({ creator: id }).populate('creator')
         
         return new Response(JSON.stringify(userLists), { status: 200 })
     } catch (error) {
