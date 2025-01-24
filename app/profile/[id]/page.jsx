@@ -31,12 +31,12 @@ const UserProfile = () => {
   }
 
   useEffect(() => {
-    const getData = () => {
+    const getData = async () => {
       setIsLoading(true)
       if(status === "authenticated" && session?.user?.id) {
         try {
-          fetchLists();
-          fetchUser();
+          await fetchLists();
+          await fetchUser();
         } catch (error) {
           console.error('Failed to fetch lists:', error);
         } finally {
@@ -51,6 +51,7 @@ const UserProfile = () => {
   return (
     <Profile 
       session={session}
+      id={id}
       userLists={userLists}
       profilePic={user.image}
       userName={user.username}

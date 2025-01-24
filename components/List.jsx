@@ -27,7 +27,7 @@ const List = ({ list,
    setFormStatus,
    edit = false,
    handleDeleteList = () => {},
-   isLoading
+   submittingForm
   }) => {
 
     const [isInfoHovered, setIsInfoHovered] = useState({
@@ -61,7 +61,7 @@ const List = ({ list,
         { (
           list.words.map(item => (
             <div 
-              className='w-full flex justify-between items-center gap-2 border border-indigo-500 rounded-full px-2'
+              className='w-full flex justify-between items-center gap-2 bg-white border border-indigo-500 rounded-full px-2'
               key={item.noun}
             >
               <p>{item.article} {item.noun}</p>
@@ -178,18 +178,18 @@ const List = ({ list,
       <div className='flex justify-center gap-4'>
         <button 
           className='btn bg-cyan-700 hover:bg-cyan-600 transition-all min-w-16 flex justify-center'
-          disabled={isLoading}
+          disabled={submittingForm}
           onClick={() => {
             handleSaveList()
           }}
         >
-          {isLoading ? <div className='spinner'></div> : 'Save List'}
+          {submittingForm ? <div className='spinner'></div> : 'Save List'}
         </button>
         {edit && 
           <button
             className='btn bg-red-600 hover:bg-red-500 transition-all block'
             onClick={handleDeleteList}
-            disabled={isLoading}
+            disabled={submittingForm}
           >
             Delete List
           </button>

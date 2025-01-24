@@ -7,6 +7,7 @@ import LoadingCard from './LoadingCard';
 
 const Profile = ({
     session = undefined,
+    id,
     userLists,
     profilePic,
     userName,
@@ -60,8 +61,12 @@ const Profile = ({
           }
       </div>
       <div className='w-full max-w-screen-lg mx-auto'>
-          <h1 className='text-center text-xl sm:text-2xl text-cyan-600 mb-4'>{session ? 'My' : userName} lists</h1>
-          
+          {/* <h1 className='text-center text-xl sm:text-2xl text-cyan-600 mb-4'>{session?.user.id === id ? 'My' : userName}</h1> */}
+          {
+            isLoading ? <div className='w-32 mx-auto bg-gray-300 h-7 animate-pulse mb-4 rounded-md'></div>
+            : 
+            <h1 className='text-center text-xl sm:text-2xl text-cyan-600 mb-4'>{session?.user.id === id ? 'My' : userName} lists</h1>
+          }
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-2'>
             {isLoading ?
             [...Array(9)].map((_, index) => (

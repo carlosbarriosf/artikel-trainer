@@ -23,7 +23,7 @@ const ListPage = ({
   return (
     <section className=' relative flex flex-col'>
       <h1 className='text-center text-base sm:text-xl font-semibold text-indigo-500 my-4'>{title}</h1>
-      <div className='flex gap-4 justify-center my-4 px-2'>
+      <div className='searchContainer'>
         <form
           className="searchBar"
           onSubmit={(e) => {
@@ -51,13 +51,13 @@ const ListPage = ({
           </select>
         </div>
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-2'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-2 relative'>
             {isLoading ?
               [...Array(9)].map((_, index) => (
                 <LoadingCard key={index} />
               ))
               : lists.length === 0 ?
-              <div className='border bg-white shadow-lg p-2 rounded-md text-sm w-full max-w-72 flex flex-col gap-2 h-72 col-start-2'>
+              <div className='border bg-white shadow-lg p-2 rounded-md text-sm w-full max-w-72 flex flex-col gap-2 h-72 absolute'>
                 <div className='flex flex-col justify-center h-full gap-6'>
                   <div className='flex w-full justify-center'>
                     <FaFileCircleQuestion size={50}/>

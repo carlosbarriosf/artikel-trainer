@@ -74,6 +74,19 @@ main {
     animation: spin 1s linear infinite;
 }
 
+.bigSpinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    border: 6px solid transparent;
+    border-top: 6px solid #0891b2;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 1s linear infinite;
+}
+
 .button-disabled {
     cursor: not-allowed;
     opacity: 0.6;
@@ -120,10 +133,23 @@ main {
     font-size: 10px;
 }
 
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    margin: 1rem 0;
+}
+
 /* xs */
 @media (min-width: 475px) {
     .main {
         max-width: 475px;
+    }
+    .searchContainer {
+        flex-direction: row;
     }
 }
 

@@ -9,14 +9,14 @@ import { NextResponse } from "next/server"
 
 
 export const middleware = async (req) => {
-    console.log("Middleware executed for URL:", req.url);
+    // console.log("Middleware executed for URL:", req.url);
 
     try {
         const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-        console.log("Token:", token);
+        // console.log("Token:", token);
 
         if (!token) {
-            console.log("No token found, redirecting...");
+            // console.log("No token found, redirecting...");
             return NextResponse.redirect(new URL('/', req.url));
         }
 

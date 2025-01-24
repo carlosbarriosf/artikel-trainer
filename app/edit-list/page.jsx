@@ -10,15 +10,22 @@ const EditList = () => {
     const searchParams = useSearchParams();
     const router = useRouter()
     const listId = searchParams.get('id')
+    const [fetchingList, setFetchingList] = useState(true)
 
     useEffect(() => {
-        const getList = async () => {
-            const res = await fetch(`/api/list/${listId}`)
-            const data = await res.json()
-            console.log(data.list)
-            setList(data.list)
+      try {
+          const getList = async () => {
+              const res = await fetch(`/api/list/${listId}`)
+              const data = await res.json()
+              console.log(data.list)
+              setList(data.list)
+          }
+          getList()
+        } catch (error) {
+          console.error(error)
+        } finally {
+          setFetchingList(false)
         }
-        getList()
     }, [])
     
     
@@ -36,7 +43,7 @@ const EditList = () => {
     const [message, setMessage] = useState('')
     const [messageClassName, setMessageClassName] = useState('')
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [submittingForm, setSubmittingForm] = useState(false)
 
     //handlers
 
@@ -71,7 +78,7 @@ const EditList = () => {
         return
       }
 
-      setIsLoading(true)
+      setSubmittingForm(true)
       try {
         const res = await fetch(`/api/list/${listId}`, {
           method: 'PATCH',
@@ -85,7 +92,7 @@ const EditList = () => {
       } catch (error) {
         console.log(error)
       } finally {
-        setIsLoading(false)
+        setSubmittingForm(false)
       }
     }
 
@@ -93,7 +100,7 @@ const EditList = () => {
       const confirmation = confirm('This action is irreversible. Are you sure you want to procceed?')
       if(!confirmation) return
 
-      setIsLoading(true)
+      setSubmittingForm(true)
 
       try {
         const res = await fetch(`/api/list/${listId}`, {
@@ -108,37 +115,41 @@ const EditList = () => {
       } catch (error) {
         console.log(error)
       } finally {
-        setIsLoading(false)
+        setSubmittingForm(false)
       }
     }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      {searchParams && (<section>
-      <h1 className='text-center text-cyan-800 text-xl sm:text-2xl mb-4 font-bold'>Edit your list!</h1>
-      {list &&
-        <h2 className='text-center mb-4 font-semibold text-indigo-500'>{list.name}</h2>
-      }  
-        {list && 
-          <List 
-            list={list}
-            handleDeleteNounBtn={handleDeleteNounBtn}
-            setList={setList}
-            setValues={setValues}
-            values={values}
-            message={message}
-            messageClassName={messageClassName}
-            handleMessage={handleMessage}
-            handleSaveList={handleSaveList}
-            formStatus={formStatus}
-            setFormStatus={setFormStatus}
-            edit={true}
-            handleDeleteList={handleDeleteList}
-            isLoading={isLoading}
-          />
+      <section>
+        { fetchingList ?
+          <div className='bigSpinner'></div>
+          :
+          <>
+            <h1 className='text-center text-cyan-800 text-xl sm:text-2xl mb-4 font-bold'>Edit your list!</h1>
+            {list &&
+              <h2 className='text-center mb-4 font-semibold text-indigo-500'>{list.name}</h2>
+            }  
+            {list && 
+              <List 
+                list={list}
+                handleDeleteNounBtn={handleDeleteNounBtn}
+                setList={setList}
+                setValues={setValues}
+                values={values}
+                message={message}
+                messageClassName={messageClassName}
+                handleMessage={handleMessage}
+                handleSaveList={handleSaveList}
+                formStatus={formStatus}
+                setFormStatus={setFormStatus}
+                edit={true}
+                handleDeleteList={handleDeleteList}
+                submittingForm={submittingForm}
+              />
+            }
+          </>
         }
-      </section>)}
-    </Suspense>
+      </section>
   )
 }
 

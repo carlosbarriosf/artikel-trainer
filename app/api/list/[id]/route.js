@@ -3,7 +3,7 @@ import { connectToDB } from "@utils/database"
 
 
 export const GET = async (req, { params }) => {
-    const {id} = params
+    const {id} = await params
     try {
         await connectToDB();
         const list = await List.findById(id)
@@ -16,9 +16,9 @@ export const GET = async (req, { params }) => {
 }
 
 export const PATCH = async (req, { params }) => {
-    const {id} = params;
+    const {id} = await params;
     const {list, likedBy} = await req.json()
-    console.log(list, likedBy)
+    // console.log(list, likedBy)
 
     try {
         await connectToDB();
@@ -47,7 +47,7 @@ export const PATCH = async (req, { params }) => {
 }
 
 export const DELETE = async (req, { params }) => {
-    const {id} = params;
+    const {id} = await params;
     try {
         await connectToDB();
 
