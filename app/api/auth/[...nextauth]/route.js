@@ -44,8 +44,7 @@ const handler = NextAuth({
                 return false
             }
         }
-    },
-    debug: process.env.NODE_ENV !== "production" || process.env.STAGING === "true"
+    }
 })
 
 export { handler as GET, handler as POST}

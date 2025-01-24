@@ -13,17 +13,24 @@ const NavBar = () => {
     const [providers, setProviders] = useState(null)
     const menuRef = useRef(null)
 
-    console.log("Session status:", status);
-    console.log("Session data:", session);
-
     useEffect(() => {
-        const setUpProviders = async () => {
-            const res = await getProviders();
-            setProviders(res);
-        }
-
-        setUpProviders()
-    }, [])
+        console.log('setting up providers')
+            const setUpProviders = async () => {
+                try {
+                    const res = await getProviders();
+                    if (!res || typeof res !== "object") {
+                        throw new Error("Invalid response from getProviders");
+                    }
+                    setProviders(res);
+                    console.log("providers set up")
+                } catch (error) {
+                    console.error("Error fetching providers:", error);
+                }
+            };
+        
+            setUpProviders();
+    }, []);
+    
 
 
     useEffect(() => {
@@ -66,7 +73,6 @@ const NavBar = () => {
                             setToggleMenu(currentValue => !currentValue)
                         }}
                     >
-                        {/* <Link href='/myprofile' className='hidden sm:block'>My profile</Link> */}
                         <Image 
                             src={session?.user.image}
                             width={37}
