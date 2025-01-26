@@ -12,13 +12,33 @@ const handler = NextAuth({
     ],
     callbacks: {
         async session({ session }) {
-            const userSession = await User.findOne({
+            // const userSession = await User.findOne({
+            //     email: session.user.email
+            // })
+    
+            // session.user.id = userSession._id.toString()
+    
+            // return session;
+            try {
+                connectToDB();
+                const userSession = await User.findOne({
                 email: session.user.email
-            })
-    
-            session.user.id = userSession._id.toString()
-    
-            return session;
+                })
+
+                if(userSession) {
+                    session.user.id = userSession._id.toString()
+                } else {
+                    console.warn("No user found for session")
+                }
+        
+                return session;
+            } catch (error) {
+                console.log(error)
+                return {
+                    ...session,
+                    user: {...session.user, id: null}
+                }
+            }
         },
         async signIn({ profile }) {
             try {
