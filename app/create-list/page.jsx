@@ -29,7 +29,7 @@ const CreateList = () => {
   const [message, setMessage] = useState('')
   const [messageClassName, setMessageClassName] = useState('')
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [submittingForm, setSubmittingForm] = useState(false)
 
   //handlers
 
@@ -64,7 +64,7 @@ const CreateList = () => {
       return
     }
     
-    setIsLoading(true)
+    setSubmittingForm(true)
 
     try {
       const res = await fetch('/api/list/new', {
@@ -85,7 +85,7 @@ const CreateList = () => {
     } catch (error) {
       console.log(error)
     } finally {
-      setIsLoading(false)
+      setSubmittingForm(false)
     }
     }
   
@@ -105,7 +105,7 @@ const CreateList = () => {
         handleSaveList={handleSaveList}
         formStatus={formStatus}
         setFormStatus={setFormStatus}
-        isLoading={isLoading}
+        submittingForm={submittingForm}
       />
     </section>
   )

@@ -164,7 +164,8 @@ const List = ({ list,
           />
           <div className='w-full flex justify-center mt-4'>
             <button 
-              type='submit' 
+              type='submit'
+              disabled={submittingForm}
               className='btn bg-indigo-500 hover:bg-indigo-400 transition-all'
             >
               Add noun
@@ -173,7 +174,7 @@ const List = ({ list,
         </form>
       </div>
       {message && (
-        <div className={`${messageClassName} absolute bottom-8 right-4 text-white rounded-lg p-2 text-sm sm:text-base`}>{message}</div>
+        <div className={`${messageClassName} absolute bottom-24 right-4 text-white rounded-lg p-2 text-sm sm:text-base`}>{message}</div>
       )}
       <div className='flex justify-center gap-4'>
         <button 
