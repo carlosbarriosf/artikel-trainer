@@ -53,6 +53,7 @@ export const GET = async (req, res) => {
                 totalItems,
                 totalPages: Math.ceil(totalItems / limit),
                 currentPage: page,
+                limit: limit
               },
             }),
             { status: 200 }

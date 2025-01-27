@@ -57,7 +57,7 @@ const ListPage = ({
                 <LoadingCard key={index} />
               ))
               : lists.length === 0 ?
-              <div className='border bg-white shadow-lg p-2 rounded-md text-sm w-full max-w-72 flex flex-col gap-2 h-72 absolute'>
+              <div className='border bg-white shadow-lg p-2 rounded-md text-sm w-full max-w-72 flex flex-col gap-2 h-72'>
                 <div className='flex flex-col justify-center h-full gap-6'>
                   <div className='flex w-full justify-center'>
                     <FaFileCircleQuestion size={50}/>
@@ -94,7 +94,7 @@ const ListPage = ({
             }
           </div>
           {
-          lists.length !== 0 &&
+          (lists.length !== 0 && lists.length > pagination.limit) &&
           <PaginationControls
             currentPage={pagination.currentPage}
             onPageChange={handlePageChange}
