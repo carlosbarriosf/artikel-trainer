@@ -51,13 +51,13 @@ const ListPage = ({
           </select>
         </div>
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-2 relative'>
+      <div className={`${isLoading === false && lists.length === 0 ? 'flex' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-2'} relative`}>
             {isLoading ?
               [...Array(9)].map((_, index) => (
                 <LoadingCard key={index} />
               ))
               : lists.length === 0 ?
-              <div className='border bg-white shadow-lg p-2 rounded-md text-sm w-full max-w-72 flex flex-col gap-2 h-72'>
+              <div className='border bg-white shadow-lg p-2 rounded-md text-sm w-full max-w-72 flex flex-col gap-2 h-72 mx-auto'>
                 <div className='flex flex-col justify-center h-full gap-6'>
                   <div className='flex w-full justify-center'>
                     <FaFileCircleQuestion size={50}/>
