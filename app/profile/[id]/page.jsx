@@ -1,55 +1,52 @@
 "use client";
 
-import Profile from '@components/Profile';
-import { useSession } from 'next-auth/react';
-import { useParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import Profile from "@components/Profile";
+import { useSession } from "next-auth/react";
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const UserProfile = () => {
+  const { id } = useParams();
 
-  const { id } = useParams()
+  const [userLists, setUserLists] = useState([]);
+  const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const [userLists, setUserLists] = useState([])
-  const [user, setUser] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
-
-  const { data: session, status } = useSession()
-
-
-  const fetchLists = async () => {
-    const res = await fetch(`/api/users/${id}/lists`);
-    const data = await res.json()
-
-    setUserLists(data)
-  }
-
-  const fetchUser = async () => {
-    const res = await fetch(`/api/users/${id}`);
-    const data = await res.json()
-
-    setUser(data)
-  }
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     const getData = async () => {
-      setIsLoading(true)
-      if(status === "authenticated" && session?.user?.id) {
+      setIsLoading(true);
+      setError(null); //reset error state before fetching
+      if (status === "authenticated" && session?.user?.id) {
         try {
-          await fetchLists();
-          await fetchUser();
+          const listResponse = await fetch(`/api/users/${id}/lists`);
+          if (!listResponse.ok) throw new Error("Failed to fetch lists");
+          const listData = await listResponse.json();
+
+          const userResponse = await fetch(`/api/users/${id}`);
+          if (!userResponse.ok) throw new Error("Failed to fetch user");
+          const userData = await userResponse.json();
+
+          setUserLists(listData);
+          setUser(userData);
         } catch (error) {
-          console.error('Failed to fetch lists:', error);
+          setError({
+            errorMsg: "Something went wrong",
+            errorPrompt: "Please try again later",
+          });
         } finally {
-          setIsLoading(false)
+          setIsLoading(false);
         }
       }
-    }
+    };
 
-    getData()
-  }, [status])
+    getData();
+  }, [status]);
 
   return (
-    <Profile 
+    <Profile
       session={session}
       id={id}
       userLists={userLists}
@@ -57,8 +54,9 @@ const UserProfile = () => {
       userName={user.username}
       profileId={id}
       isLoading={isLoading}
+      error={error}
     />
-  )
-}
+  );
+};
 
-export default UserProfile
+export default UserProfile;
