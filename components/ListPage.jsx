@@ -4,6 +4,7 @@ import PaginationControls from "@components/PaginationControls";
 import Image from "next/image";
 import Link from "next/link";
 import { FaFileCircleQuestion } from "react-icons/fa6";
+import { BiSolidError } from "react-icons/bi";
 
 import React from "react";
 import ListErrorCard from "./ListErrorCard";
@@ -19,7 +20,17 @@ const ListPage = ({
   pagination,
   session,
   title,
+  error,
 }) => {
+  if (error)
+    return (
+      <ListErrorCard
+        errorMsg={error.errorMsg}
+        errorPrompt={error.errorPrompt}
+        icon={<BiSolidError size={50} />}
+      />
+    );
+
   return (
     <section className=" relative flex flex-col">
       <h1 className="text-center text-base sm:text-xl font-semibold text-indigo-500 my-4">

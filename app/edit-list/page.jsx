@@ -2,19 +2,24 @@
 export const dynamic = "force-dynamic";
 
 import List from "@components/List";
+import ListErrorCard from "@components/ListErrorCard";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { BiSolidError } from "react-icons/bi";
 
 const EditList = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const listId = searchParams.get("id");
   const [fetchingList, setFetchingList] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    setFetchingList(true);
     try {
       const getList = async () => {
         const res = await fetch(`/api/list/${listId}`);
+        if (!res.ok) throw new Error("Failed to fetch list");
         const data = await res.json();
         console.log(data.list);
         setList(data.list);
@@ -22,6 +27,10 @@ const EditList = () => {
       getList();
     } catch (error) {
       console.error(error);
+      setError({
+        errorMsg: "Something went wrong",
+        errorPrompt: "Please try again later",
+      });
     } finally {
       setFetchingList(false);
     }
@@ -121,6 +130,15 @@ const EditList = () => {
       setSavingList(false);
     }
   };
+
+  if (error)
+    return (
+      <ListErrorCard
+        errorMsg={error.errorMsg}
+        errorPrompt={error.errorPrompt}
+        icon={<BiSolidError size={50} />}
+      />
+    );
 
   return (
     <section>

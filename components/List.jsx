@@ -155,7 +155,7 @@ const List = ({
             value={values.noun}
             required={true}
             ref={inputRef}
-            placeholder="Balkon"
+            placeholder="Auto"
             minLength={2}
             maxLength={30}
             onChange={(e) => setValues({ ...values, noun: e.target.value })}
