@@ -59,7 +59,10 @@ const Play = () => {
 
     setCheckingAnswer(true);
 
-    if (values.article === shuffledWordArray[currentWord].article) {
+    if (
+      values.article.toLowerCase() ===
+      shuffledWordArray[currentWord].article.toLowerCase()
+    ) {
       setArticleClassName("bg-green-600 text-white");
     } else {
       setArticleClassName("bg-red-500 text-white");
@@ -69,7 +72,10 @@ const Play = () => {
       }));
     }
 
-    if (values.plural === shuffledWordArray[currentWord].plural) {
+    if (
+      values.plural.toLowerCase() ===
+      shuffledWordArray[currentWord].plural.toLowerCase()
+    ) {
       setPluralClassName("bg-green-600 text-white");
     } else {
       setPluralClassName("bg-red-500 text-white");
