@@ -43,6 +43,8 @@ const UserLikedLists = () => {
   useEffect(() => {
     const getLists = async () => {
       setIsLoading(true);
+      //error clearance
+      setError(null);
       if (status === "authenticated" && session?.user?.id) {
         try {
           const currentQuery = Object.fromEntries(searchParams.entries());

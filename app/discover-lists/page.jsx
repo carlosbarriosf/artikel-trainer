@@ -40,6 +40,8 @@ const DiscoverLists = () => {
 
   useEffect(() => {
     if (!searchParams) return;
+    //error clearance
+    setError(null);
     const getLists = async () => {
       setIsLoading(true);
       try {

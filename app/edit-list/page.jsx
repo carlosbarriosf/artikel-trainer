@@ -15,6 +15,8 @@ const EditList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    //error clearance
+    setError(null);
     setFetchingList(true);
     try {
       const getList = async () => {
