@@ -15,6 +15,10 @@ const Play = () => {
   const [gameEnded, setGameEnded] = useState(false);
   const [articleClassName, setArticleClassName] = useState("");
   const [pluralClassName, setPluralClassName] = useState("");
+  const [correctAnswer, setCorrectAnswer] = useState({
+    article: "",
+    plural: "",
+  });
   const [values, setValues] = useState({
     article: "",
     plural: "",
@@ -66,9 +70,13 @@ const Play = () => {
       setArticleClassName("bg-green-600 text-white");
     } else {
       setArticleClassName("bg-red-500 text-white");
-      setValues((currentValues) => ({
-        ...currentValues,
-        article: `${currentValues.article}`,
+      // setValues((currentValues) => ({
+      //   ...currentValues,
+      //   article: `${currentValues.article}`,
+      // }));
+      setCorrectAnswer((currentValue) => ({
+        ...currentValue,
+        article: shuffledWordArray[currentWord].article.toLowerCase(),
       }));
     }
 
@@ -79,6 +87,10 @@ const Play = () => {
       setPluralClassName("bg-green-600 text-white");
     } else {
       setPluralClassName("bg-red-500 text-white");
+      setCorrectAnswer((currentValue) => ({
+        ...currentValue,
+        plural: shuffledWordArray[currentWord].plural.toLowerCase(),
+      }));
     }
 
     if (
@@ -105,6 +117,10 @@ const Play = () => {
         setArticleClassName("");
         setPluralClassName("");
         setValues({
+          article: "",
+          plural: "",
+        });
+        setCorrectAnswer({
           article: "",
           plural: "",
         });
@@ -192,23 +208,30 @@ const Play = () => {
                     >
                       article
                     </label>
-                    <input
-                      ref={inputRef}
-                      autoComplete="off"
-                      readOnly={checkingAnswer}
-                      type="text"
-                      name="article"
-                      id="article"
-                      required={true}
-                      className={`w-2/3 text-sm px-2 py-1 transition-all ${articleClassName}`}
-                      value={values.article.toLowerCase()}
-                      onChange={(e) => {
-                        setValues({
-                          ...values,
-                          article: e.target.value,
-                        });
-                      }}
-                    />
+                    <div className="flex flex-col w-2/3">
+                      <input
+                        ref={inputRef}
+                        autoComplete="off"
+                        readOnly={checkingAnswer}
+                        type="text"
+                        name="article"
+                        id="article"
+                        required={true}
+                        className={`w-full text-sm px-2 py-1 transition-all ${articleClassName}`}
+                        value={values.article.toLowerCase()}
+                        onChange={(e) => {
+                          setValues({
+                            ...values,
+                            article: e.target.value,
+                          });
+                        }}
+                      />
+                      {correctAnswer.article && (
+                        <p className="h-4 text-sm text-red-600">
+                          Answer: {correctAnswer.article}
+                        </p>
+                      )}
+                    </div>
                   </div>
                   <div className="flex justify-between items-center py-2 px-6">
                     <label

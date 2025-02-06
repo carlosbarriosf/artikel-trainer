@@ -97,6 +97,13 @@ const CreateList = () => {
       <h1 className="text-center text-cyan-800 text-xl sm:text-2xl mb-4 font-bold">
         Create a new list of nouns!
       </h1>
+      <div className="w-full flex justify-center my-8">
+        <p className="max-w-lg text-base font-semibold text-center">
+          Create a fully customized list of nouns, with articles and plural
+          forms. When you're done with it, you can look for it in your profile
+          and play it!
+        </p>
+      </div>
       <h2 className="text-center mb-4 font-semibold text-indigo-500">
         {list?.name || "Your list name"}
       </h2>
