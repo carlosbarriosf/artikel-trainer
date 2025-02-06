@@ -89,7 +89,10 @@ const Play = () => {
       setPluralClassName("bg-red-500 text-white");
       setCorrectAnswer((currentValue) => ({
         ...currentValue,
-        plural: shuffledWordArray[currentWord].plural.toLowerCase(),
+        plural:
+          shuffledWordArray[currentWord].plural === ""
+            ? "Only Singular"
+            : shuffledWordArray[currentWord].plural.toLowerCase(),
       }));
     }
 
