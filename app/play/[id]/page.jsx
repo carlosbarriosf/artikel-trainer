@@ -257,7 +257,7 @@ const Play = () => {
                         }}
                       />
                       {correctAnswer.plural && (
-                        <p className="h-4 text-sm text-red-600">
+                        <p className="h-4 text-sm text-red-600 capitalize">
                           Answer: {correctAnswer.plural}
                         </p>
                       )}
