@@ -100,7 +100,7 @@ const CreateList = () => {
       <div className="w-full flex justify-center my-8">
         <p className="max-w-lg text-base font-semibold text-center">
           Create a fully customized list of nouns, with articles and plural
-          forms. When you're done with it, you can look for it in your profile
+          forms. When you are done with it, you can look for it in your profile
           and play it!
         </p>
       </div>
