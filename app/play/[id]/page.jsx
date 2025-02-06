@@ -240,21 +240,28 @@ const Play = () => {
                     >
                       plural
                     </label>
-                    <input
-                      type="text"
-                      autoComplete="off"
-                      readOnly={checkingAnswer}
-                      name="plural"
-                      id="plural"
-                      className={`w-2/3 text-sm px-2 py-1 transition-all ${pluralClassName}`}
-                      value={values.plural}
-                      onChange={(e) => {
-                        setValues({
-                          ...values,
-                          plural: e.target.value,
-                        });
-                      }}
-                    />
+                    <div className="flex flex-col w-2/3">
+                      <input
+                        type="text"
+                        autoComplete="off"
+                        readOnly={checkingAnswer}
+                        name="plural"
+                        id="plural"
+                        className={`w-full text-sm px-2 py-1 transition-all ${pluralClassName}`}
+                        value={values.plural}
+                        onChange={(e) => {
+                          setValues({
+                            ...values,
+                            plural: e.target.value,
+                          });
+                        }}
+                      />
+                      {correctAnswer.plural && (
+                        <p className="h-4 text-sm text-red-600">
+                          Answer: {correctAnswer.plural}
+                        </p>
+                      )}
+                    </div>
                   </div>
                   <div className="w-full flex justify-center mt-4">
                     <button
