@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "@node_modules/next-auth/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -9,6 +10,7 @@ import { TiDelete } from "react-icons/ti";
 
 const Play = () => {
   const { id } = useParams();
+  const { data: session } = useSession();
   const [listObject, setListObject] = useState();
   const [shuffledWordArray, setShuffledWordArray] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
@@ -183,7 +185,7 @@ const Play = () => {
                     Try other lists!
                   </Link>
                   <Link
-                    href="/myprofile"
+                    href={`/profile/${session.user.id}`}
                     className="btn bg-cyan-600 hover:bg-cyan-500 transition-all"
                   >
                     My Profile
